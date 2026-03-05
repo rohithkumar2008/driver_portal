@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Registration Portal</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body class="h-full">
+  <div class="app-wrapper overflow-auto">
+    <!-- Page 1: Get Started -->
+    <div id="page-1" class="page active flex-col items-center justify-center min-h-full px-4 py-8">
+      <div class="text-center max-w-lg fade-in">
+        <!-- Logo -->
+        <div class="mb-8 float-animation">
+          <svg width="120" height="120" viewbox="0 0 120 120" fill="none" class="mx-auto">
+            <circle cx="60" cy="60" r="55" stroke="url(#grad1)" stroke-width="4" fill="none" />
+            <path d="M40 70C40 70 45 50 60 50C75 50 80 70 80 70" stroke="#22c55e" stroke-width="4"
+              stroke-linecap="round" />
+            <circle cx="45" cy="70" r="8" fill="#3b82f6" />
+            <circle cx="75" cy="70" r="8" fill="#3b82f6" />
+            <circle cx="60" cy="40" r="12" fill="#22c55e" />
+            <path d="M55 38L60 33L65 38M55 42L60 47L65 42" stroke="#0f172a" stroke-width="2" stroke-linecap="round" />
+            <defs>
+              <lineargradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#22c55e" />
+                <stop offset="100%" stop-color="#3b82f6" />
+              </lineargradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 id="main-title" class="font-display text-4xl md:text-5xl font-bold mb-4" style="color: var(--text-color);">
+          Driver Registration Portal</h1>
+        <p id="main-tagline" class="text-lg mb-2" style="color: rgba(241,245,249,0.7);">Register. Generate. Drive Safe.
+        </p>
+        <p class="text-sm mb-8" style="color: rgba(241,245,249,0.5);">Create your digital driver ID with QR code for
+          quick verification</p>
+        <div class="card p-6 mb-8 text-left">
+          <h3 class="font-display font-semibold mb-4" style="color: var(--text-color);">How it works:</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                style="background: var(--primary-color); color: #0f172a;">
+                1
+              </div>
+              <div>
+                <p class="font-medium" style="color: var(--text-color);">Enter Your Details</p>
+                <p class="text-sm" style="color: rgba(241,245,249,0.6);">Fill in your personal and vehicle information
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                style="background: var(--secondary-color); color: white;">
+                2
+              </div>
+              <div>
+                <p class="font-medium" style="color: var(--text-color);">Generate QR Code</p>
+                <p class="text-sm" style="color: rgba(241,245,249,0.6);">Get a unique QR code with all your details</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                style="background: linear-gradient(135deg, #22c55e, #3b82f6); color: white;">
+                3
+              </div>
+              <div>
+                <p class="font-medium" style="color: var(--text-color);">Download &amp; Display</p>
+                <p class="text-sm" style="color: rgba(241,245,249,0.6);">Save and paste the QR code on your vehicle</p>
+              </div>
+            </div>
+          </div>
+        </div><button onclick="goToPage(2)" class="btn-primary text-lg"> Get Started
+          <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg></button>
+        <p id="footer-company" class="mt-8 text-sm" style="color: rgba(241,245,249,0.4);">Powered by DriveSecure</p>
+      </div>
+    </div><!-- Page 2: Registration Form -->
+    <div id="page-2" class="page flex-col items-center min-h-full px-4 py-8">
+      <div class="w-full max-w-2xl fade-in">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+          <button onclick="goToPage(1)" class="flex items-center gap-2 text-sm" style="color: rgba(241,245,249,0.7);">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg> Back </button>
+          <div class="step-indicator">
+            <div class="step completed"></div>
+            <div class="step active"></div>
+            <div class="step"></div>
+          </div>
+        </div>
+        <h2 class="font-display text-3xl font-bold mb-2 text-center" style="color: var(--text-color);">Driver
+          Registration</h2>
+        <p class="text-center mb-8" style="color: rgba(241,245,249,0.6);">Enter your details to generate your driver QR
+          code</p>
+        <form id="driver-form" class="card p-6 md:p-8">
+          <!-- Photo Upload -->
+          <div class="flex flex-col items-center mb-8">
+            <label class="photo-upload mb-3" id="photo-container"> <input type="file" accept="image/*" id="photo-input"
+                class="hidden" onchange="handlePhotoUpload(event)">
+              <div id="photo-placeholder" class="text-center">
+                <svg class="w-10 h-10 mx-auto mb-2" style="color: rgba(241,245,249,0.4);" fill="none"
+                  stroke="currentColor" viewbox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg><span class="text-xs" style="color: rgba(241,245,249,0.4);">Add Photo</span>
+              </div><img id="photo-preview" class="hidden" alt="Driver photo">
+            </label>
+            <p class="text-sm" style="color: rgba(241,245,249,0.5);">Driver Photo (Optional)</p>
+          </div><!-- Driver Details -->
+          <div class="mb-6">
+            <h3 class="font-display font-semibold mb-4 flex items-center gap-2" style="color: var(--text-color);">
+              <svg class="w-5 h-5" style="color: var(--primary-color);" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg> Driver Details
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Full Name *</label> <input
+                  type="text" id="driver-name" class="input-field" placeholder="Enter your full name" required>
+              </div>
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Age *</label> <input
+                  type="number" id="driver-age" class="input-field" placeholder="Enter your age" min="18" max="80"
+                  required>
+              </div>
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Mobile Number *</label> <input
+                  type="tel" id="mobile-number" class="input-field" placeholder="Enter mobile number" required>
+              </div>
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">License Number *</label> <input
+                  type="text" id="license-number" class="input-field" placeholder="Enter license number" required>
+              </div>
+            </div>
+          </div><!-- Vehicle Details -->
+          <div class="mb-8">
+            <h3 class="font-display font-semibold mb-4 flex items-center gap-2" style="color: var(--text-color);">
+              <svg class="w-5 h-5" style="color: var(--secondary-color);" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7h8m-8 5h8m-4 9a9 9 0 110-18 9 9 0 010 18zm0-18v18" />
+              </svg> Vehicle Details
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Vehicle Number *</label> <input
+                  type="text" id="vehicle-number" class="input-field" placeholder="e.g., MH 01 AB 1234" required>
+              </div>
+              <div>
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Vehicle Type *</label> <select
+                  id="vehicle-type" class="input-field" required>
+                  <option value="">Select vehicle type</option>
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                  <option value="Auto Rickshaw">Auto Rickshaw</option>
+                  <option value="Taxi">Taxi</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Truck">Truck</option>
+                </select>
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm mb-2" style="color: rgba(241,245,249,0.7);">Vehicle Model</label> <input
+                  type="text" id="vehicle-model" class="input-field" placeholder="e.g., Honda City, Royal Enfield">
+              </div>
+            </div>
+          </div><button type="submit" id="submit-btn" class="btn-primary w-full text-lg"> <span
+              id="submit-text">Generate QR Code</span> </button>
+        </form>
+      </div>
+    </div><!-- Page 3: QR Code Generated -->
+    <div id="page-3" class="page flex-col items-center justify-center min-h-full px-4 py-8">
+      <div class="text-center max-w-lg fade-in">
+        <!-- Success Icon -->
+        <div class="mb-6">
+          <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center"
+            style="background: rgba(34, 197, 94, 0.2);">
+            <svg class="w-10 h-10" style="color: var(--primary-color);" fill="none" stroke="currentColor"
+              viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </div>
+        <h2 class="font-display text-3xl font-bold mb-2" style="color: var(--text-color);">QR Code Generated!</h2>
+        <p class="mb-6" style="color: rgba(241,245,249,0.6);">Your driver QR code is ready for download</p>
+        <!-- Driver Summary Card -->
+        <div class="card p-4 mb-6 text-left">
+          <div class="flex items-center gap-4">
+            <div id="summary-photo" class="w-16 h-16 rounded-full flex items-center justify-center"
+              style="background: rgba(255,255,255,0.1);">
+              <svg class="w-8 h-8" style="color: rgba(241,245,249,0.4);" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <p id="summary-name" class="font-semibold" style="color: var(--text-color);">Driver Name</p>
+              <p id="summary-vehicle" class="text-sm" style="color: rgba(241,245,249,0.6);">Vehicle Number</p>
+            </div>
+          </div>
+        </div><!-- QR Code -->
+        <div class="qr-container mb-6">
+          <div id="qr-code-container"></div>
+        </div><!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+          <button onclick="downloadQRCode()" class="btn-primary">
+            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg> Download QR Code </button> <button onclick="registerNew()" class="btn-secondary"> Register Another
+            Driver </button>
+        </div><!-- Important Notice -->
+        <div class="card p-4 text-left"
+          style="border-color: rgba(234, 179, 8, 0.3); background: rgba(234, 179, 8, 0.1);">
+          <div class="flex items-start gap-3">
+            <svg class="w-6 h-6 flex-shrink-0" style="color: #eab308;" fill="none" stroke="currentColor"
+              viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+              <p class="font-semibold mb-1" style="color: #eab308;">Important Notice</p>
+              <p class="text-sm" style="color: rgba(241,245,249,0.8);">Please print this QR code and <strong>paste it on
+                  a visible area of your vehicle</strong> (preferably on the windshield or side window) for easy
+                verification by authorities and passengers.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-indicator justify-center mt-8">
+          <div class="step completed"></div>
+          <div class="step completed"></div>
+          <div class="step active"></div>
+        </div>
+      </div>
+    </div><!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9d78948246b7298c',t:'MTc3MjcwODA0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
