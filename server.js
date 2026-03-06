@@ -15,12 +15,14 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));  // Increased limit for base64 photos
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// ✅ Serve frontend files (index.html, script.js, style.css) from the same server
-app.use(express.static('D:\\KG Hackthon'));
+const path = require('path');
+
+// ✅ Serve frontend files (index.html, script.js, style.css) from the same directory
+app.use(express.static(__dirname));
 
 // Serve index.html at root
 app.get('/', (req, res) => {
-    res.sendFile('D:\\KG Hackthon\\index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Define Driver Schema
