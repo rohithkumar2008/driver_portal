@@ -70,9 +70,6 @@ app.get('/api/drivers', async (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
     console.log(`✅ Server is running on http://localhost:${PORT}`);
-    console.log(`🌐 To access from other devices on your Wi-Fi:`);
-    console.log(`   Type 'ipconfig' in terminal, find IPv4 Address (e.g., 192.168.x.x)`);
-    console.log(`   Then open: http://<your-ipv4>:${PORT}`);
 });
