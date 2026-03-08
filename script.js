@@ -162,8 +162,24 @@ async function handleFormSubmit(event) {
     };
 
     try {
-        // ✅ STEP 1: Generate QR Code FIRST (always works, no backend needed)
-        await generateQRCode(currentDriverData);
+        // ✅ STEP 1: Save to MongoDB backend first
+        const apiUrl = window.location.protocol === 'file:' ? 'http://localhost:5000/api/drivers' : '/api/drivers';
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentDriverData)
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.message || 'Failed to save driver');
+        }
+
+        console.log("✅ Saved to Database, acquired ID:", result.data._id);
+
+        // ✅ STEP 2: Generate Verification QR Code
+        await generateQRCode(result.data._id);
 
         // Update summary card
         document.getElementById('summary-name').textContent = driverName;
@@ -175,48 +191,23 @@ async function handleFormSubmit(event) {
             summaryPhoto.innerHTML = `<img src="${driverPhotoDataUrl}" alt="Driver" class="w-full h-full object-cover rounded-full">`;
         }
 
-        // Navigate to success page immediately
+        // Navigate to success page
         goToPage(3);
-        showToast('QR Code generated successfully!', 'success');
-
-        // ✅ STEP 2: Try to save to MongoDB backend (in background)
-        const apiUrl = window.location.protocol === 'file:' ? 'http://localhost:5000/api/drivers' : '/api/drivers';
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentDriverData)
-        })
-            .then(response => response.json())
-            .then(result => {
-                console.log("✅ Saved to Database:", result);
-                showToast('Driver data saved to database!', 'success');
-            })
-            .catch(err => {
-                console.warn("⚠️ Could not save to backend (server may be offline):", err);
-                showToast('QR ready! (Backend offline - data not saved)', 'error');
-            });
+        showToast('Secure QR Code generated successfully!', 'success');
 
     } catch (error) {
-        showToast('Failed to generate QR code. Please try again.', 'error');
-        console.error('QR Generation Error:', error);
+        showToast('Failed to generate verification code. Ensure server is running.', 'error');
+        console.error('Registration Error:', error);
     } finally {
         submitBtn.disabled = false;
         submitText.textContent = 'Generate QR Code';
     }
 }
 
-// Generate QR Code using qrcode.js instead of external image API
-async function generateQRCode(data) {
-    const qrData = JSON.stringify({
-        name: data.driver_name,
-        age: data.driver_age,
-        mobile: data.mobile_number,
-        license: data.license_number,
-        vehicle: data.vehicle_number,
-        type: data.vehicle_type,
-        model: data.vehicle_model,
-        registered: data.created_at
-    });
+// Generate QR Code containing a Verification URL
+async function generateQRCode(driverId) {
+    // Generate URL that scanners will open
+    const verifyUrl = `${window.location.protocol}//${window.location.host}/verify.html?id=${driverId}`;
 
     // Clear any existing QR code in the container
     const qrContainerId = document.getElementById('qr-code-container');
@@ -225,7 +216,7 @@ async function generateQRCode(data) {
     try {
         // Create new QR Code directly in the container using the library
         new QRCode(qrContainerId, {
-            text: qrData,
+            text: verifyUrl,
             width: 300,
             height: 300,
             colorDark: "#000000",
