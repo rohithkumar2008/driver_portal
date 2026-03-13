@@ -207,7 +207,12 @@ async function handleFormSubmit(event) {
 // Generate QR Code containing a Verification URL
 async function generateQRCode(driverId) {
     // Generate URL that scanners will open
-    const verifyUrl = `${window.location.protocol}//${window.location.host}/verify.html?id=${driverId}`;
+    let verifyUrl;
+    if (window.location.protocol === 'file:') {
+        verifyUrl = `http://localhost:5000/verify.html?id=${driverId}`;
+    } else {
+        verifyUrl = `${window.location.protocol}//${window.location.host}/verify.html?id=${driverId}`;
+    }
 
     // Clear any existing QR code in the container
     const qrContainerId = document.getElementById('qr-code-container');
