@@ -204,15 +204,18 @@ async function handleFormSubmit(event) {
     }
 }
 
-// Generate QR Code containing a Verification URL
+// Generate QR Code containing Driver Details and Verification URL
 async function generateQRCode(driverId) {
-    // Generate URL that scanners will open
-    let verifyUrl;
-    if (window.location.protocol === 'file:') {
-        verifyUrl = `http://localhost:5000/verify.html?id=${driverId}`;
-    } else {
-        verifyUrl = `${window.location.protocol}//${window.location.host}/verify.html?id=${driverId}`;
-    }
+    // Construct the data string for the QR code
+    const qrData = `OFFICIAL DRIVER ID
+-----------------
+Driver: ${currentDriverData.driver_name}
+License: ${currentDriverData.license_number}
+Vehicle: ${currentDriverData.vehicle_type} (${currentDriverData.vehicle_number})
+Model: ${currentDriverData.vehicle_model}
+-----------------
+Verification URL:
+${window.location.protocol === 'file:' ? 'http://localhost:5000' : window.location.origin}/verify.html?id=${driverId}`;
 
     // Clear any existing QR code in the container
     const qrContainerId = document.getElementById('qr-code-container');
@@ -221,12 +224,12 @@ async function generateQRCode(driverId) {
     try {
         // Create new QR Code directly in the container using the library
         new QRCode(qrContainerId, {
-            text: verifyUrl,
-            width: 300,
-            height: 300,
-            colorDark: "#000000",
+            text: qrData,
+            width: 320,
+            height: 320,
+            colorDark: "#0f172a", // Match background
             colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
+            correctLevel: QRCode.CorrectLevel.Q // High error correction for density
         });
 
     } catch (error) {
